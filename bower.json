@@ -1,0 +1,13 @@
+{
+  "name": "laravel",
+  "description": "laravel starterpack frontend with bower",
+  "main": "",
+  "authors": [
+    "adyakbar <muh.adyakbar@gmail.com>"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "gentelella": "^1.3.0",
+    "sweetalert": "^1.1.3"
+  }
+}
