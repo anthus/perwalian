@@ -1,6 +1,6 @@
 ## Siakad UNTAN
 
-Develop Ulang Siakad UNTAN menggunakan Laravel 5.3 (Mahasiswa)
+Develop Ulang Siakad UNTAN menggunakan Laravel 5.3 (Dosen)
 
 Silahkan Clone / Fork Repository ini. Mari bersama membangun Sistem Informasi Akademik UNTAN lebih Powerfull, Secure dan Responsive.
 
