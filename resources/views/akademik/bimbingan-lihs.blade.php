@@ -9,28 +9,32 @@
 <div class="clearfix"></div>
 <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
 	<div class="col-md-2">
+		<img src="{{ url('cek-foto?nim='.$mahasiswa['nim']) }}" alt="" class="img-responsive" style="margin-bottom: 20px;">
 		<a href="{{ route('akademik.bimbingan') }}" class="btn btn-sm btn-warning btn-block" type="button"><i class="fa fa-chevron-left"></i>
 		Kembali</a>
 	</div>
+	<div class="col-md-10">
+		<div class="row top_tiles">
+			<div class="col-md-6 col-xs-6 tile">
+				<span>NIM</span>
+				<h2>{{ $mahasiswa['nim'] }}</h2>
+			</div>
+			<div class="col-md-6 col-xs-6 tile">
+				<span>Nama Mahasiswa</span>
+				<h2>{{ $mahasiswa['nama'] }}</h2>
+			</div>
+			<div class="col-md-6 col-xs-6 tile">
+				<span>Angkatan</span>
+				<h2>{{ $mahasiswa['angkatan'] }}</h2>
+			</div>
+			<div class="col-md-6 col-xs-6 tile">
+				<span>Prodi</span>
+				<h2>{{ $mahasiswa['namabagian'] }}</h2>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="row top_tiles">
-	<div class="col-md-3 col-xs-6 tile">
-		<span>NIM</span>
-		<h2>{{ $mahasiswa['nim'] }}</h2>
-	</div>
-	<div class="col-md-3 col-xs-6 tile">
-		<span>Nama Mahasiswa</span>
-		<h2>{{ $mahasiswa['nama'] }}</h2>
-	</div>
-	<div class="col-md-3 col-xs-6 tile">
-		<span>Angkatan</span>
-		<h2>{{ $mahasiswa['angkatan'] }}</h2>
-	</div>
-	<div class="col-md-3 col-xs-6 tile">
-		<span>Prodi</span>
-		<h2>{{ $mahasiswa['namabagian'] }}</h2>
-	</div>
-</div>
+
 
 <div class="row">
 	<div class="col-md-12">
@@ -62,7 +66,7 @@
 				<ul class="nav nav-tabs tabs-left">
 					<?php $last_key = count($lihs) - 1; ?>
 					@foreach($lihs as $key => $value)
-					<li class="@if($key == $last_key) active @endif" ><a href="#{{ $value['idperiode'] }}" data-toggle="tab">{{ $value['thakad'] }}</a>
+					<li class="@if($key == $last_key) active @endif" ><a href="#{{ $value['idperiode'] }}" data-toggle="tab">{{ $value['thakad'].' '.\App\Convert::ubah_semester($value['semester']) }}</a>
 					</li>
 					@endforeach
 				</ul>

@@ -143,5 +143,17 @@ class Convert extends Model
 				return "Non Reguler";
 				break;
 		}
+	}
+
+	public static function status_publish($status)
+	{
+		switch ($status) {
+			case 1:
+				return "Sudah Terpublish";
+				break;
+			default:
+				return "Belum Terpublish";
+				break;
+		}
 	} 
 }

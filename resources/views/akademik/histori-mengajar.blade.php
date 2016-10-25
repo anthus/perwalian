@@ -17,7 +17,7 @@
 			<div class="x_content">
 				<div class="row">
 					<div class="table-responsive">
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<table class="table table-striped" id="datatable">
 								<thead>
 									<tr>
@@ -36,7 +36,7 @@
 										<td>{{ $value['thakad'] }}</td>
 										<td>{{ \App\Convert::ubah_semester($value['semester']) }}</td>
 										<td>{{ \App\Convert::status_perkuliahan($value['perkuliahan']) }}</td>
-										<td><a href="{{ route('akademik.histori-mengajar.periode', array($key)) }}" class="btn btn-success btn-xs">Detail</a></td>
+										<td><a href="{{ route('akademik.histori-mengajar.periode', array(Hashids::connection('histori-mengajar')->encode($key) )) }}" class="btn btn-success btn-xs">Detail</a></td>
 									</tr>
 									<?php $i++; ?>
 									@endforeach

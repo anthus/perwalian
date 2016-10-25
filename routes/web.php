@@ -3,8 +3,11 @@
 Route::get('/', 'ProfilController@home')->name('profil');
 Route::post('/auth/login', 'ProfilController@login')->name('login');
 Route::get('/auth/logout', 'ProfilController@logout')->name('logout');
+Route::get('/cek-foto', 'ProfilController@cek_foto');
 
 Route::group(['middleware' => 'login.session'], function() {
+
+	Route::post('/update-password', 'ProfilController@update_password');
 
 	Route::get('/histori-mengajar', 'AkademikController@histori_mengajar')->name('akademik.histori-mengajar');
 	Route::get('/histori-mengajar/{indexperiode}', 'AkademikController@daftar_histori_mengajar')->name('akademik.histori-mengajar.periode');
@@ -12,23 +15,17 @@ Route::group(['middleware' => 'login.session'], function() {
 
 	Route::get('/bimbingan', 'AkademikController@bimbingan')->name('akademik.bimbingan');
 	Route::get('/bimbingan/lihs/{index}', 'AkademikController@bimbingan_lihs')->name('akademik.bimbingan.lihs');
+	Route::post('/bimbingan/lirs/validasi', 'AkademikController@validasi_lirs');
 	Route::get('/bimbingan/lirs/{index}', 'AkademikController@bimbingan_lirs')->name('akademik.bimbingan.lirs');
 
+	Route::get('/entri-nilai', 'AkademikController@entri_nilai')->name('akademik.entri-nilai');
+	Route::get('/entri-nilai/{index}', 'AkademikController@entri_nilai_input')->name('akademik.entri-nilai.input');
+	Route::post('/entri-nilai/update-bobot', 'AkademikController@update_bobot');
+	Route::post('/entri-nilai/cek-nilai', 'AkademikController@cek_nilai');
+	Route::post('/entri-nilai/update-mutu', 'AkademikController@update_mutu');
+	Route::post('/entri-nilai/publish', 'AkademikController@publish');
 
-
-
-	Route::get('/rencana-studi/modifikasi', 'AkademikController@modifikasi_lirs')->name('akademik.lirs.modifikasi');
-	Route::post('/rencana-studi/modifikasi', 'AkademikController@modifikasi_lirs_input');
-
-	Route::get('/hasil-studi', 'AkademikController@lihs')->name('akademik.lihs');
-	Route::get('/hasil-studi/{idperiode}', 'AkademikController@detail_lihs')->name('akademik.lihs.periode');
-
-	Route::get('/transkrip', 'AkademikController@transkrip')->name('akademik.transkrip');
-
-	Route::get('/jadwal-pribadi', 'JadwalController@jadwal_pribadi')->name('jadwal.pribadi');
-	Route::get('/jadwal-prodi', 'JadwalController@jadwal_prodi')->name('jadwal.prodi');
-
-	Route::get('/biaya-kuliah', 'KeuanganController@biaya_kuliah')->name('keuangan.biaya-kuliah');
+	Route::get('/jadwal-mengajar', 'JadwalController@jadwal_mengajar')->name('jadwal.mengajar');
 
 	
 });

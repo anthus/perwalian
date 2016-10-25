@@ -50,7 +50,7 @@
 										<th>Nama Matakuliah</th>
 										<th>Program</th>
 										<th>Kelas</th>
-										<th>-</th>
+										<th>Jadwal</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -61,7 +61,7 @@
 										<td>{{ $value['namamk'] }}</td>
 										<td>{{ $value['program'] }}</td>
 										<td>{{ $value['kelas'] }}</td>
-										<td><a href="{{ route('akademik.histori-mengajar.detail', array(Hashids::connection('histori-mengajar')->encode($indexperiode), Hashids::connection('histori-mengajar')->encode($key) )) }}" class="btn btn-success btn-xs">Detail</a></td>
+										<td>-</td>
 									</tr>
 									@endforeach
 								</tbody>

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Webservice extends Model
 {
-    private $url 		= 'http://203.24.50.30';
-    private $port 		= '7475';
-    private $portFoto	= '9999';
+    public $url 		= 'http://203.24.50.30';
+    public $port 		= '7475';
+    public $portFoto	= '9999';
 
     private function cek_service($link)
     {
@@ -50,13 +50,23 @@ class Webservice extends Model
                 'nama' => $service['nama'],
                 'gelarblk' => $gelarblk,
                 'gelardpn' => $gelardpn,
-                'nip' => $nip
+                'nip' => $nip,
+                'password' => $password
             );
         }
         else
         {
             return false;
         }
+    }
+
+    public function cek_foto($nim)
+    {
+        $link = $this->url.':'.$this->portFoto.'/Datasnap/Rest/Tservermethods1/getpicbynim/'.$nim;
+
+        $service = $this->cek_service($link);
+
+        return $service;
     }
 
     public function periode_ajar($iddosen, $iden)
@@ -122,108 +132,103 @@ class Webservice extends Model
         return $service;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function validlirs($idmhs, $iden)
+    public function validasi_lirs_mahasiswa($status, $idjadwal, $idmahasiswa, $iddosen, $iden)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/validlirs/'.$idmhs.'/'.$iden;
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/ValidasiLirsMhs/'.$status.'/'.$idjadwal.'/'.$idmahasiswa.'/'.$iddosen.'/'.$iden;
 
         $service = $this->cek_service($link);
 
         return $service;
     }
 
-    public function tampil_lirs($idmhs, $idperiode, $iden)
+    public function cek_validasi_matakuliah($idjadwal, $iddosen, $iden)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/tampillirs/'.$idmhs.'/'.$idperiode.'/'.$iden;
-        $service = $this->cek_service($link);
-
-        return $service;
-    }
-
-    public function tampil_lirs_all($idprogdi, $idprogram, $idperiode)
-    {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/jadwal/'.$idprogdi.'/'.$idprogram.'/'.$idperiode;
-        $service = $this->cek_service($link);
-
-        return $service;
-    }
-
-    public function input_lirs($idmhs, $idjadwal, $idmatakuliah, $idperiode, $iden, $cname)
-    {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/inputlirs/'.$idmhs.'/'.$idjadwal.'/'.$idmatakuliah.'/'.$idperiode.'/'.$iden.'/'.$cname;
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/validmk/'.$idjadwal.'/'.$iddosen.'/'.$iden;
 
         $service = $this->cek_service($link);
 
         return $service;
     }
 
-    public function periode_lihs($idmhs, $iden)
+    public function tampil_bobot($idjadwal, $iddosen, $iden)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/periodelihs/'.$idmhs.'/'.$iden;
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/tampilbobot/'.$idjadwal.'/'.$iddosen.'/'.$iden;
 
         $service = $this->cek_service($link);
 
         return $service;
     }
 
-    public function tampil_lihs($idmhs, $idperiode, $iden)
+    public function update_bobot($bidjadwal, $bhadir, $btugas, $buts, $buas, $bpertemuan, $iddosen, $iden, $bool, $cname)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/tampillihs/'.$idmhs.'/'.$idperiode.'/'.$iden;
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/ubahbobot/'.$bidjadwal.'/'.$bhadir.'/'.$btugas.'/'.$buts.'/'.$buas.'/'.$bpertemuan.'/'.$iddosen.'/'.$iden.'/'.$bool.'/'.$cname;
 
         $service = $this->cek_service($link);
 
         return $service;
     }
 
-    public function transkrip($idmhs, $iden)
+    public function input_nilai($idkst, $idjadwal, $absen, $tugas, $uts, $uas, $cname, $iddosen, $iden)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/transkrip/'.$idmhs.'/'.$iden;
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/inputnilai/'.$idkst.'/'.$idjadwal.'/'.$absen.'/'.$tugas.'/'.$uts.'/'.$uas.'/'.$cname.'/'.$iddosen.'/'.$iden;
+        
+        $service = $this->cek_service($link);
+
+        return $service;
+    }
+
+    public function update_mutu($idkst, $nilaihuruf, $cname, $iddosen, $iden)
+    {
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/inputnilai/'.$idkst.'/'.$nilaihuruf.'/'.$cname.'/'.$iddosen.'/'.$iden;
 
         $service = $this->cek_service($link);
 
         return $service;
     }
 
-    public function periode_bayar($idmhs, $iden)
+    public function publish($idjadwal, $iddosen, $iden, $cname)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/periodebayar/'.$idmhs.'/'.$iden;
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/inputnilai/'.$idjadwal.'/'.$iddosen.'/'.$iden.'/'.$cname;
 
         $service = $this->cek_service($link);
 
         return $service;
     }
 
-    public function detail_bayar($idmhs, $idperiode, $iden)
+    public function update_password_dosen($iddosen, $iden, $passwordbaru)
     {
-        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/tampilbayar/'.$idmhs.'/'.$idperiode.'/'.$iden;
-
+        $link = $this->url.':'.$this->port.'/Datasnap/Rest/Tservermethods1/ubahpasswdosen/'.$iddosen.'/'.$iden.'/'.$passwordbaru;
+        
         $service = $this->cek_service($link);
 
         return $service;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }

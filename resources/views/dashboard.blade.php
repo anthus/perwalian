@@ -59,8 +59,8 @@
 							</div>
 							<div class="profile_info">
 								<span>Selamat Datang</span>
-								<?php $profile = session()->get('dosen'); ?>
-								<h2>{{ $profile['nama'] }}</h2>
+								<?php $profil = session()->get('dosen'); ?>
+								<h2>{{ $profil['gelardpn'].' '.ucwords(strtolower($profil['nama'])).' '.$profil['gelarblk']  }}</h2>
 							</div>
 						</div>
 						<!-- /menu profile quick info -->
@@ -73,24 +73,20 @@
 									<li><a href="{{ route('profil') }}"><i class="fa fa-home"></i> Home</a></li>
 									<li><a><i class="fa fa-area-chart"></i> Akademik <span class="fa fa-chevron-down"></span></a>
 										<ul class="nav child_menu">
-											<li><a href="{{ route('akademik.lihs') }}">Entri Nilai</a></li>
+											<li><a href="{{ route('akademik.entri-nilai') }}">Entri Nilai</a></li>
 											<li><a href="{{ route('akademik.histori-mengajar') }}">Histori Mengajar</a></li>
 											<li><a href="{{ route('akademik.bimbingan') }}">Mahasiswa Bimbingan</a></li>
 										</ul>
 									</li>
 									<li><a><i class="fa fa-calendar"></i> Jadwal <span class="fa fa-chevron-down"></span></a>
 										<ul class="nav child_menu">
-											<li><a href="{{ route('jadwal.prodi') }}">Jadwal Prodi</a></li>
-											<li><a href="{{ route('jadwal.pribadi') }}">Jadwal Pribadi</a></li>
+											<li><a href="{{ route('jadwal.mengajar') }}">Jadwal Mengajar</a></li>
 											<li><a href="#">Jadwal Ujian</a></li>
 											<li><a href="#">Jadwal Seminar</a></li>
 											<li><a href="#">Jadwal Sidang</a></li>
 										</ul>
 									</li>
-									<li><a><i class="fa fa-list-ul"></i> Monitoring Evaluasi <span class="fa fa-chevron-down"></span></a>
-										<ul class="nav child_menu">
-											<li><a href="{{ route('jadwal.prodi') }}">EDOM</a></li>
-										</ul>
+									<li><a href="a.html"><i class="fa fa-list-ul"></i> Monitoring Evaluasi </a>
 									</li>
 									<li>
 										<form action="http://e-learning.untan.ac.id/verifikasi" method="POST">

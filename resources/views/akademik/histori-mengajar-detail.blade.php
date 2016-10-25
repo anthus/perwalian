@@ -35,7 +35,7 @@
 				</div>
 				<div class="row" style="margin-top: 20px;">
 					<div class="col-md-2">
-						<a href="{{ route('akademik.histori-mengajar.periode', array($indexperiode)) }}" class="btn btn-sm btn-warning btn-block" type="button"><i class="fa fa-chevron-left"></i>
+						<a href="{{ route('akademik.histori-mengajar.periode', array(Hashids::connection('histori-mengajar')->encode($indexperiode))) }}" class="btn btn-sm btn-warning btn-block" type="button"><i class="fa fa-chevron-left"></i>
 						Kembali</a>
 					</div>
 				</div>

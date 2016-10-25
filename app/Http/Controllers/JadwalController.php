@@ -9,37 +9,30 @@ use Cache;
 
 class JadwalController extends Controller
 {
-    public function jadwal_pribadi()
+    public function jadwal_mengajar()
     {
-    	$profil = session()->get('mhs');
+        $profil = session()->get('dosen');
 
-    	$nim = $profil['nim'];
-    	$idmhs = $profil['idmhs'];
-    	$iden = $profil['iden'];
-    	$idperiode = $profil['idperiode'];
+        $nip = $profil['nip'];
+        $iddosen = $profil['iddosen'];
+        $iden = $profil['iden'];
 
-    	$webservice = new \App\Webservice;
+        $webservice = new \App\Webservice;
 
-    	$lirs = Cache::remember('lirs'.$nim, 60, function() use ($webservice, $idmhs, $idperiode, $iden){
-			return $webservice->tampil_lirs($idmhs, $idperiode, $iden);
-		});
-    	return view('jadwal.pribadi', compact('lirs'));
-    }
+        $periodeAll = Cache::remember('periode-ajar.'.$nip, 60, function() use ($webservice, $iddosen, $iden){
+            return $webservice->periode_ajar($iddosen, $iden);
+        });
 
-    public function jadwal_prodi()
-    {
-    	$profil = session()->get('mhs');
+        $index_last_periode = count($periodeAll) - 2;
+        $index_now_periode = count($periodeAll) - 1;
 
-    	$nim = $profil['nim'];
-    	$idperiode = $profil['idperiode'];
-    	$idprogdi = $profil['idprogdi'];
-    	$idprogram = $profil['idprogram'];
+        $periode = $periodeAll[$index_now_periode];
+        $idperiode = $periode['idperiode'];
 
-    	$webservice = new \App\Webservice;
+        $matakuliah = Cache::remember('matakuliah.'.$nip.'.'.$idperiode, 60, function() use ($webservice, $iddosen, $idperiode, $iden){
+            return $webservice->periode_matakuliah($iddosen, $idperiode, $iden);
+        });
 
-		$lirsAll = Cache::remember('lirs-all.'.$nim, 60, function() use ($webservice, $idprogdi, $idprogram, $idperiode){
-			return $webservice->tampil_lirs_all($idprogdi, $idprogram, $idperiode);
-		});
-		return view('jadwal.prodi', compact('lirsAll'));
+        return view('jadwal.mengajar', compact('matakuliah', 'periode'));
     }
 }

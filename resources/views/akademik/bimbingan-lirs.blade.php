@@ -9,28 +9,32 @@
 <div class="clearfix"></div>
 <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
 	<div class="col-md-2">
+		<img src="{{ url('cek-foto?nim='.$mahasiswa['nim']) }}" alt="" class="img-responsive" style="margin-bottom: 20px;">
 		<a href="{{ route('akademik.bimbingan') }}" class="btn btn-sm btn-warning btn-block" type="button"><i class="fa fa-chevron-left"></i>
 		Kembali</a>
 	</div>
+	<div class="col-md-10">
+		<div class="row top_tiles">
+			<div class="col-md-6 col-xs-6 tile">
+				<span>NIM</span>
+				<h2>{{ $mahasiswa['nim'] }}</h2>
+			</div>
+			<div class="col-md-6 col-xs-6 tile">
+				<span>Nama Mahasiswa</span>
+				<h2>{{ $mahasiswa['nama'] }}</h2>
+			</div>
+			<div class="col-md-6 col-xs-6 tile">
+				<span>Angkatan</span>
+				<h2>{{ $mahasiswa['angkatan'] }}</h2>
+			</div>
+			<div class="col-md-6 col-xs-6 tile">
+				<span>Prodi</span>
+				<h2>{{ $mahasiswa['namabagian'] }}</h2>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="row top_tiles">
-	<div class="col-md-3 col-xs-6 tile">
-		<span>NIM</span>
-		<h2>{{ $mahasiswa['nim'] }}</h2>
-	</div>
-	<div class="col-md-3 col-xs-6 tile">
-		<span>Nama Mahasiswa</span>
-		<h2>{{ $mahasiswa['nama'] }}</h2>
-	</div>
-	<div class="col-md-3 col-xs-6 tile">
-		<span>Angkatan</span>
-		<h2>{{ $mahasiswa['angkatan'] }}</h2>
-	</div>
-	<div class="col-md-3 col-xs-6 tile">
-		<span>Prodi</span>
-		<h2>{{ $mahasiswa['namabagian'] }}</h2>
-	</div>
-</div>
+
 
 <div class="row" style="margin-top: 20px;">
 	<div class="col-md-12">
@@ -66,7 +70,11 @@
 								<tbody>
 									@foreach($lirs as $key => $value)
 									<tr>
-										<td><input type="checkbox" class="flat" name="table_records"></td>
+										<td>
+											@if($value['stat'] == 0)
+											<input type="checkbox" class="flat" name="table_records" value="{{$value['idjadwal']}}">
+											@endif
+										</td>
 										<td>{{ $key + 1 }}</td>
 										<td>{{ $value['kodemk'] }}</td>
 										<td>{{ $value['namamk'] }}</td>
@@ -77,8 +85,10 @@
 										<?php $convert = \App\Convert::status_lirs($value['stat']); ?>
 										<td><?php echo $convert; ?></td>
 										<td style="width: 100px;">
-											<button class="btn btn-success btn-sm"><i class="fa fa-check"></i></button>
-											<button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+											@if($value['stat'] == 0)
+											<button class="btn btn-success btn-sm" onclick="btnValidasiLirs({{ $value['idjadwal'] }}, 1)"><i class="fa fa-check"></i></button>
+											<button class="btn btn-danger btn-sm" onclick="btnValidasiLirs({{ $value['idjadwal'] }}, 2)"><i class="fa fa-times"></i></button>
+											@endif
 										</td>
 									</tr>
 									@endforeach
@@ -88,13 +98,12 @@
 										</td>
 										<td colspan="8"></td>
 										<td>
-											<button class="btn btn-success btn-sm"><i class="fa fa-check"></i></button>
-											<button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+											<input type="hidden" name="idmahasiswa" value="{{$mahasiswa['idmahasiswa']}}">
+											<button class="btn btn-success btn-sm validasiLirsAll" data-status="1" ><i class="fa fa-check"></i></button>
+											<button class="btn btn-danger btn-sm validasiLirsAll" data-status="2" ><i class="fa fa-times"></i></button>
 										</td>
 									</tr>
 								</tbody>
-								
-
 							</table>
 						</div>
 					</div>
@@ -107,3 +116,80 @@
 
 @endsection
 
+@section('plugin')
+<script>
+	$('.validasiLirsAll').click(function() {
+
+		var idjadwal = $("input[name='table_records']:checked").map(function(_, el){
+			return $(el).val();
+		}).get();
+
+		var idmahasiswa = $("input[name='idmahasiswa']").val();
+		var status = $(this).attr("data-status");
+
+		if(idjadwal.length == 0)
+		{
+			swal("Gagal", "Tidak ada matakuliah yang di pilih", "error")
+		}
+		else
+		{
+			swal({   
+				title: "Konfirmasi Input LIRS",   
+				text: "Apakah Anda yakin validasi matakuliah?",   
+				type: "info",
+				showCancelButton: true,   
+				closeOnConfirm: false,   
+				showLoaderOnConfirm: true, 
+			}, function(){   
+				$.ajax({
+					method: 'post',
+					url: 'validasi',
+					data: {
+						idjadwal: idjadwal.join(),
+						idmahasiswa: idmahasiswa,
+						status: status
+					}
+				}).done(function(data) {
+					swal({
+						title: data,
+					}, function() {
+						location.reload();
+					});
+				});
+			});
+		}
+	});
+
+
+	function btnValidasiLirs(idjadwal, status)
+	{
+		var idmahasiswa = $("input[name='idmahasiswa']").val();
+
+		swal({   
+			title: "Konfirmasi Input LIRS",   
+			text: "Apakah Anda yakin validasi matakuliah?",   
+			type: "info",
+			showCancelButton: true,   
+			closeOnConfirm: false,   
+			showLoaderOnConfirm: true, 
+		}, function(){   
+			$.ajax({
+				method: 'post',
+				url: 'validasi',
+				data: {
+					'idjadwal': idjadwal,
+					'idmahasiswa': idmahasiswa,
+					'status': status
+				}
+			}).done(function(data) {
+				swal({
+					title: data,
+				}, function() {
+					location.reload();
+				});
+			});
+		});
+	}
+
+</script>
+@endsection

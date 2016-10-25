@@ -33,12 +33,9 @@
 						<h2>{{ count($matakuliah) }}</h2>
 					</div>
 				</div>
-				<div class="row" style="margin-top: 20px;">
-					<div class="col-md-2">
-						<a href="{{ route('akademik.histori-mengajar') }}" class="btn btn-sm btn-warning btn-block" type="button"><i class="fa fa-chevron-left"></i>
-						Kembali</a>
-					</div>
-				</div>
+				@if (session('pesan'))
+					<h2><span class="label label-danger">{{ session('pesan') }}</span></h2>
+				@endif
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-responsive" style="margin-left: 10px; margin-top: 20px;">
@@ -50,7 +47,8 @@
 										<th>Nama Matakuliah</th>
 										<th>Program</th>
 										<th>Kelas</th>
-										<th>-</th>
+										<th>Status</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -61,14 +59,18 @@
 										<td>{{ $value['namamk'] }}</td>
 										<td>{{ $value['program'] }}</td>
 										<td>{{ $value['kelas'] }}</td>
-										<td><a href="{{ route('akademik.histori-mengajar.detail', array(Hashids::connection('histori-mengajar')->encode($indexperiode), Hashids::connection('histori-mengajar')->encode($key) )) }}" class="btn btn-success btn-xs">Detail</a></td>
+										<td>{{ \App\Convert::status_publish($value['publish']) }}</td>
+										<td>
+											@if($value['publish'] != 1)
+												<a href="{{ route('akademik.entri-nilai.input', Hashids::connection('entri-nilai')->encode($key)) }}" class="btn btn-success btn-xs">Input Nilai</a>
+											@endif
+										</td>
 									</tr>
 									@endforeach
 								</tbody>
 							</table>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
