@@ -90,9 +90,8 @@
 									</li>
 									<li>
 										<form action="http://e-learning.untan.ac.id/verifikasi" method="POST">
-											<input type="hidden" name="username" value="{{ session()->get('mhs')['nim'] }}">
-											<input type="hidden" name="password" value="{{ substr(session()->get('mhs')['password'], 1)  }}">
-											<input type="hidden" name="_token" value="bkz1UiXXhlf8Y9sG4AjGo0RlonNbzlvXFtAuQpzf">
+											<input type="hidden" name="username" value="{{ session()->get('dosen')['nim'] }}">
+											<input type="hidden" name="password" value="{{ substr(session()->get('dosen')['password'], 1)  }}">
 											<button type="submit" class="btn-elearning"> <i class="fa fa-leanpub"></i> E-Learning</button>
 										</form>
 									</li>
