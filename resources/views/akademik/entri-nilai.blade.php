@@ -63,6 +63,8 @@
 										<td>
 											@if($value['publish'] != 1)
 												<a href="{{ route('akademik.entri-nilai.input', Hashids::connection('entri-nilai')->encode($key)) }}" class="btn btn-success btn-xs">Input Nilai</a>
+											@else
+												<a href="{{ route('akademik.export-pdf', Hashids::connection('entri-nilai')->encode($key)) }}" class="btn btn-success btn-xs">Export PDF</a>
 											@endif
 										</td>
 									</tr>

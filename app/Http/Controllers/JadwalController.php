@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Cache;
+use Excel;
 
 class JadwalController extends Controller
 {
@@ -34,5 +35,19 @@ class JadwalController extends Controller
         });
 
         return view('jadwal.mengajar', compact('matakuliah', 'periode'));
+    }
+
+    public function test_excel()
+    {
+        Excel::create('Filename', function($excel) {
+
+            // ini untuk membuat sheet
+            $excel->sheet('Sheetname', function($sheet) {
+
+                $sheet->loadView('excel.nilai', array('key' => 'value'));
+
+            });
+
+        })->export('xls');
     }
 }

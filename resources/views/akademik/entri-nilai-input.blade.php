@@ -24,6 +24,10 @@ $cname = substr($oricname,0,19);
 						<a href="{{ route('akademik.entri-nilai') }}" class="btn btn-sm btn-warning btn-block" type="button"><i class="fa fa-chevron-left"></i>
 						Kembali</a>
 					</div>
+					<div class="col-md-2">
+						<a href="{{ route('akademik.export-excel',  Hashids::connection('entri-nilai')->encode($index)) }}" class="btn btn-sm btn-success btn-block" type="button"><i class="fa fa-file"></i>
+						Export Excel</a>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-md-push-6">

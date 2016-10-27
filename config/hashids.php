@@ -50,21 +50,21 @@ return [
         ],
 
         'histori-mengajar' => [
-            'salt' => 'ini-adalah-enkripsi-untuk-histori-mengajar',
+            'salt' => 'iniadalahenkripsiuntukhistorimengajar',
             'length' => 35,
-            'alphabet' => 'ini-adalah-enkripsi-untuk-histori-mengajar',
+            'alphabet' => 'iniadalahenkripsiuntukhistorimengajar',
         ],
 
         'bimbingan' => [
-            'salt' => 'ini-adalah-enkripsi-untuk-bimbingan',
+            'salt' => 'iniadalahenkripsiuntukbimbingan',
             'length' => 35,
-            'alphabet' => 'ini-adalah-enkripsi-untuk-bimbingan'
+            'alphabet' => 'iniadalahenkripsiuntukbimbingan'
         ],
 
         'entri-nilai' => [
-            'salt' => 'ini-adalah-enkripsi-untuk-entri-nilai-yang-panjang',
+            'salt' => 'iniadalahenkripsiuntukentrinilaiyangpanjang',
             'length' => 35,
-            'alphabet' => 'ini-adalah-enkripsi-untuk-entri-nilai-yang-panjang'
+            'alphabet' => 'iniadalahenkripsiuntukentrinilaiyangpanjang'
         ]
     ],
 
